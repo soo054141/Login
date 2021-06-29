@@ -51,7 +51,7 @@ module.exports = (webpackEnv) => {
             new CleanWebpackPlugin(),
         ],
         devServer: {
-            port: 3000,
+            port: 3001,
             host: "localhost",
             open: true,
             overlay: true,
