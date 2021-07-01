@@ -56,6 +56,7 @@ module.exports = (webpackEnv) => {
             open: true,
             overlay: true,
             stats: "errors-warnings",
+            historyApiFallback: true,
         },
     };
 };
