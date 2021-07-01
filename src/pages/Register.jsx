@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 export const Wrapper = styled.div`
     width: 100%;
@@ -77,22 +76,10 @@ const Button = styled.button`
     cursor: pointer;
 `;
 
-const AlertText = styled.p`
-    width: 358px;
-    font-size: 12px;
-    text-align: center;
-    margin-top: 20px;
-    text-decoration: none;
-    list-style: none;
-    color: red;
-`;
-
 const Register = () => {
     const [id, setId] = useState("");
     const [pw, setPw] = useState("");
     const [pwCheck, setPwCheck] = useState("");
-
-    // const set
 
     const onChangeId = (e) => {
         setId(e.target.value);
@@ -106,41 +93,39 @@ const Register = () => {
         setPwCheck(e.target.value);
     };
 
-    const userInfo = {
-        user_id: id,
-        password: pw,
-    };
-
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (pw !== pwCheck) {
-            alert("비밀번호 확인이 일치하지 않습니다");
-            return;
-        }
+        if (id.length !== 0 && pw.length !== 0 && pwCheck.length !== 0) {
+            if (pw !== pwCheck) {
+                alert("비밀번호 확인이 일치하지 않습니다");
+            } else {
+                const searchId = localStorage.getItem(id);
 
-        const searchId = Object.values(localStorage).filter(
-            (user) => JSON.parse(user).user_id === id
-        );
-        if (searchId.length !== 0) {
-            alert("중복된 아이디가 있습니다.");
+                if (searchId !== null) {
+                    alert("중복된 아이디가 있습니다.");
+                } else {
+                    alert("가입이 완료되었습니다.");
+                    localStorage.setItem(id, pw);
+                    window.location.href = "/";
+                }
+            }
         } else {
-            alert("가입이 완료되었습니다.");
-            localStorage.setItem("userList", JSON.stringify(userInfo));
-            window.location.href = "/greeting";
+            alert("값을 입력하세요.");
         }
     };
 
-    //useEffect로 한 번만 되게
-    const validateLogin = () => {
-        const userInfo = localStorage.getItem("userList");
-
-        if (userInfo !== null) {
+    const LoginValidate = () => {
+        if (sessionStorage.length !== 0) {
+            alert("잘못된 접근입니다.");
+            sessionStorage.clear();
             window.location.href = "/";
         }
     };
 
-    validateLogin();
+    useEffect(() => {
+        LoginValidate();
+    }, []);
 
     return (
         <Wrapper>
@@ -171,9 +156,6 @@ const Register = () => {
                         value={pwCheck}
                     />
                     <Button type="submit">회원가입</Button>
-                    <AlertText blue>
-                        <Link to="/">로그인 하러 가기 </Link>
-                    </AlertText>
                 </Form>
             </Container>
         </Wrapper>

@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 const Wrapper = styled.div`
     width: 100%;
@@ -78,35 +77,37 @@ const Logout = styled.button`
     text-align: center;
 `;
 
-const LogoutSubmit = (e) => {
-    e.preventDefault();
-
-    localStorage.removeItem("userList");
-    alert("로그아웃 됨");
-    window.location.href = "/";
-};
-
 const Greeting = () => {
-    const validateLogin = () => {
-        const userInfo = localStorage.getItem("userList");
-        console.log(userInfo);
-        if (userInfo === null) {
+    const userId = sessionStorage.key(0);
+
+    const LoginValidate = () => {
+        if (sessionStorage.length !== 1) {
+            alert("잘못된 접근입니다.");
+            alert("메인 화면으로 이동합니다.");
+            sessionStorage.clear();
             window.location.href = "/";
         }
     };
 
-    validateLogin();
+    useEffect(() => {
+        LoginValidate();
+    }, []);
+
+    const LogoutSubmit = (e) => {
+        e.preventDefault();
+
+        sessionStorage.clear();
+        window.location.href = "/";
+    };
 
     return (
         <Wrapper>
             <Container>
                 <Form>
                     <Header>인아이디어 컨텐츠몰</Header>
-                    <Title>Welcome!</Title>
-                    <Username>로그인 상태입니다.</Username>
-                    <Link to="/">
-                        <Logout onClick={LogoutSubmit}>로그아웃</Logout>
-                    </Link>
+                    <Title>Welcome, {userId}님!</Title>
+                    <Username>{userId}님은 로그인 상태입니다.</Username>
+                    <Logout onClick={LogoutSubmit}>로그아웃</Logout>
                 </Form>
             </Container>
         </Wrapper>

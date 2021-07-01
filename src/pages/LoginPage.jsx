@@ -1,8 +1,5 @@
-/* eslint-disable no-unused-expressions */
-/* eslint-disable no-alert */
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 const Wrapper = styled.div`
     box-sizing: border-box;
@@ -79,40 +76,34 @@ const LoginBtn = styled.button`
 `;
 
 const LoginPage = () => {
-    const [userId, setUserId] = useState("");
-    const [userPw, setUserPw] = useState("");
+    const [inputId, setInputId] = useState("");
+    const [inputPw, setInputPw] = useState("");
 
     const isLoggedID = (e) => {
-        setUserId(e.target.value);
+        setInputId(e.target.value);
     };
 
     const isLoggedPW = (e) => {
-        setUserPw(e.target.value);
+        setInputPw(e.target.value);
+    };
+
+    const validate = () => {
+        const getUser = localStorage.getItem(inputId);
+
+        if (getUser === inputPw) {
+            alert("로그인 되었습니다.");
+            sessionStorage.setItem(inputId, true);
+            window.location.href = "./greeting";
+        } else {
+            alert("아이디/비밀번호가 일치하지 않습니다.");
+        }
     };
 
     const loginSubmit = (e) => {
         e.preventDefault();
 
-        const userIf = `{"user_id":"${userId}","password":"${userPw}"}`;
-
-        const getUserId = Object.values(localStorage).filter(
-            (user) => JSON.parse(user).user_id === userId
-        );
-
-        const isLoggedOn = () => {
-            if (getUserId.length !== 0) {
-                getUserId.toString() === userIf
-                    ? alert("로그인 성공")
-                    : alert("비밀번호가 틀렸습니다");
-            } else {
-                alert("아이디를 확인하세요");
-            }
-        };
-
-        if (!userId || !userPw) {
-            alert("아이디/비밀번호를 입력하세요");
-        } else {
-            isLoggedOn();
+        if (inputId && inputPw) {
+            validate();
         }
     };
 
@@ -127,19 +118,17 @@ const LoginPage = () => {
                         name="user_id"
                         placeholder="아이디"
                         onChange={isLoggedID}
-                        value={userId}
+                        value={inputId}
                     />
                     <InputWithLabel
                         type="password"
                         name="password"
                         placeholder="비밀번호"
                         onChange={isLoggedPW}
-                        value={userPw}
+                        value={inputPw}
                     />
                     <ForgotTitle>비밀번호를 잊으셨나요?</ForgotTitle>
-                    <Link to="greeting">
-                        <LoginBtn type="submit">로그인</LoginBtn>
-                    </Link>
+                    <LoginBtn type="submit">로그인</LoginBtn>
                 </LoginContent>
             </LoginWrapper>
         </Wrapper>
