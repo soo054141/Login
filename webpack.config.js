@@ -3,7 +3,6 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 const PROJECT_ROOT = path.resolve(__dirname);
-const SRC_PATH = path.resolve(__dirname, "src");
 const BUILD_PATH = path.resolve(PROJECT_ROOT, "build");
 const PUBLIC_INDEX = path.resolve(PROJECT_ROOT, "public", "index.html");
 
@@ -12,8 +11,10 @@ module.exports = (webpackEnv) => {
     const isEnvProduction = mode === "production";
     return {
         mode,
-        entry: path.resolve(SRC_PATH, "index.jsx"),
+        entry: "./src/index.jsx",
+        // entry: path.resolve(SRC_PATH, "index.jsx"),
         output: {
+            publicPath: "/",
             path: BUILD_PATH,
             filename: isEnvProduction
                 ? "js/[name].[contenthash:8].js"
@@ -22,15 +23,15 @@ module.exports = (webpackEnv) => {
         module: {
             rules: [
                 {
-                    test: /\.jsx?/,
-                    exclude: /node_modules/,
+                    test: /\.(jsx|js)$/,
+                    exclude: "/node_modules/",
                     use: {
                         loader: "babel-loader",
                     },
                 },
                 {
-                    test: /\.css/,
-                    exclude: /node_modules/,
+                    test: /\.css$/,
+                    exclude: "/node_modules/",
                     use: ["style-loader", "css-loader"],
                 },
                 {
@@ -44,10 +45,12 @@ module.exports = (webpackEnv) => {
             ],
         },
         resolve: {
-            extensions: [".jsx", ".js", ".json"],
+            extensions: [".jsx", ".js"],
         },
         plugins: [
-            new HtmlWebpackPlugin({ template: PUBLIC_INDEX }),
+            new HtmlWebpackPlugin({
+                template: PUBLIC_INDEX,
+            }),
             new CleanWebpackPlugin(),
         ],
         devServer: {

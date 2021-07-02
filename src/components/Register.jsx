@@ -1,82 +1,10 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-
-export const Wrapper = styled.div`
-    width: 100%;
-    height: 1000px;
-    display: flex;
-    justify-content: center;
-    background-color: #f2f2f2;
-`;
-
-const Container = styled.div`
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
-    margin: auto;
-    width: 900px;
-    height: 515px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-`;
-
-const Form = styled.form`
-    width: 100%;
-    height: 100%;
-    padding: 20px 0px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid #e8e8e8;
-    border-radius: 20px;
-    box-shadow: 5px 5px 15px #e8e8e8;
-    background-color: #ffffff;
-`;
-
-const Title = styled.p`
-    width: 100%;
-    font-size: 26px;
-    font-weight: 700;
-    color: #b8505e;
-    text-align: center;
-    margin-bottom: 30px;
-`;
-
-const Label = styled.span`
-    width: 358px;
-    font-size: 12px;
-    color: #b8505e;
-    text-align: left;
-    margin-bottom: 8px;
-`;
-
-const Input = styled.input`
-    width: 358px;
-    margin-bottom: 20px;
-    line-height: 40px;
-    border: 1px solid #b8505e;
-    font-size: 14px;
-    text-align: left;
-    border-radius: 3px;
-`;
-
-const Button = styled.button`
-    width: 358px;
-    height: 45px;
-    border-radius: 3px;
-    border: none;
-    color: white;
-    background-color: #b8505e;
-    font-size: 14px;
-    cursor: pointer;
-`;
+import { useHistory } from "react-router-dom";
+import { Wrapper, Container, Form } from "../AppWrapper";
+import { Title, Label, Input, Button } from "./styles/register-styles";
 
 const Register = () => {
+    const history = useHistory();
     const [id, setId] = useState("");
     const [pw, setPw] = useState("");
     const [pwCheck, setPwCheck] = useState("");
@@ -107,7 +35,7 @@ const Register = () => {
                 } else {
                     alert("가입이 완료되었습니다.");
                     localStorage.setItem(id, pw);
-                    window.location.href = "/";
+                    history.push("/Login");
                 }
             }
         } else {
@@ -117,9 +45,9 @@ const Register = () => {
 
     const LoginValidate = () => {
         if (sessionStorage.length !== 0) {
-            alert("잘못된 접근입니다.");
+            alert("잘못된 접근입니다.?");
             sessionStorage.clear();
-            window.location.href = "/";
+            history.push("/Login");
         }
     };
 

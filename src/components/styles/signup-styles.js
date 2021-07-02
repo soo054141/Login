@@ -1,8 +1,6 @@
-import React, { useEffect } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
     box-sizing: border-box;
     width: 35%;
     border-radius: 0px 20px 20px 0px;
@@ -10,7 +8,7 @@ const Wrapper = styled.div`
     position: relative;
 `;
 
-const SignUpWrapper = styled.div`
+export const SignUpWrapper = styled.div`
     position: absolute;
     top: 0;
     left: 0;
@@ -26,7 +24,7 @@ const SignUpWrapper = styled.div`
     color: #ffffff;
 `;
 
-const Header = styled.h1`
+export const Header = styled.h1`
     width: 100%;
     font-size: 26px;
     font-weight: 700;
@@ -34,7 +32,7 @@ const Header = styled.h1`
     margin-bottom: 30px;
 `;
 
-const Comment = styled.span`
+export const Comment = styled.span`
     width: 100%;
     line-height: 20px;
     text-align: center;
@@ -42,7 +40,7 @@ const Comment = styled.span`
     font-weight: 400;
 `;
 
-const SignUpBtn = styled.button`
+export const SignUpBtn = styled.button`
     width: 150px;
     line-height: 38px;
     margin-top: 30px;
@@ -53,19 +51,3 @@ const SignUpBtn = styled.button`
     font-size: 12px;
     cursor: pointer;
 `;
-
-const SignUpPage = () => {
-    return (
-        <Wrapper>
-            <SignUpWrapper>
-                <Header>Hello, Guest!</Header>
-                <Comment>아직 회원이 아니신가요?</Comment>
-                <Link to="register">
-                    <SignUpBtn>회원가입</SignUpBtn>
-                </Link>
-            </SignUpWrapper>
-        </Wrapper>
-    );
-};
-
-export default SignUpPage;

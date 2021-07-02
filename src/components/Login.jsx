@@ -1,81 +1,17 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import { useHistory } from "react-router-dom";
+import {
+    Wrapper,
+    LoginWrapper,
+    LoginHeader,
+    LoginContent,
+    LoginTitle,
+    InputWithLabel,
+    LoginBtn,
+} from "./styles/login-styles";
 
-const Wrapper = styled.div`
-    box-sizing: border-box;
-    width: 65%;
-    position: relative;
-`;
-
-const LoginWrapper = styled.div`
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    padding: 20px;
-    width: 450px;
-    height: 315px;
-    box-sizing: border-box;
-`;
-
-const LoginHeader = styled.p`
-    width: 100%;
-    margin-bottom: 10px;
-    font-size: 26px;
-    font-weight: 700;
-    color: #b8505e;
-    text-align: center;
-`;
-const LoginContent = styled.form`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-`;
-
-const LoginTitle = styled.p`
-    width: 100%;
-    font-size: 12px;
-    font-weight: 400;
-    color: #666;
-    text-align: center;
-    margin: 20px 0px;
-`;
-
-const InputWithLabel = styled.input`
-    width: 358px;
-    margin-top: 10px;
-    line-height: 40px;
-    background-color: #f2f2f2;
-    border: none;
-    font-size: 12px;
-`;
-
-const ForgotTitle = styled.p`
-    margin: 30px 0px;
-    width: 100%;
-    color: #b8505e;
-    text-align: center;
-    font-size: 12px;
-    font-weight: 400;
-    cursor: pointer;
-`;
-
-const LoginBtn = styled.button`
-    width: 150px;
-    height: 40px;
-    border-radius: 20px;
-    border: none;
-    color: white;
-    background-color: #b8505e;
-    font-size: 12px;
-    cursor: pointer;
-`;
-
-const LoginPage = () => {
+const Login = () => {
+    const history = useHistory();
     const [inputId, setInputId] = useState("");
     const [inputPw, setInputPw] = useState("");
 
@@ -93,7 +29,7 @@ const LoginPage = () => {
         if (getUser === inputPw) {
             alert("로그인 되었습니다.");
             sessionStorage.setItem(inputId, true);
-            window.location.href = "./greeting";
+            history.push("/Login/greeting");
         } else {
             alert("아이디/비밀번호가 일치하지 않습니다.");
         }
@@ -127,7 +63,6 @@ const LoginPage = () => {
                         onChange={isLoggedPW}
                         value={inputPw}
                     />
-                    <ForgotTitle>비밀번호를 잊으셨나요?</ForgotTitle>
                     <LoginBtn type="submit">로그인</LoginBtn>
                 </LoginContent>
             </LoginWrapper>
@@ -135,4 +70,4 @@ const LoginPage = () => {
     );
 };
 
-export default LoginPage;
+export default Login;

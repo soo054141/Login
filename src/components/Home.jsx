@@ -1,23 +1,26 @@
 import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { Wrapper, Container } from "../AppWrapper";
-import LoginPage from "./LoginPage";
-import SignUpPage from "./SingUpPage";
+import Login from "./Login";
+import SignUp from "./SingUp";
 
 function Home() {
+    const history = useHistory();
     const LoginValidate = () => {
         if (sessionStorage.length !== 0) {
-            window.location.href = "/greeting";
+            history.push("/Login/greeting");
         }
     };
 
     useEffect(() => {
         LoginValidate();
     }, []);
+
     return (
         <Wrapper>
             <Container>
-                <LoginPage />
-                <SignUpPage />
+                <Login />
+                <SignUp />
             </Container>
         </Wrapper>
     );

@@ -25,3 +25,17 @@ export const Container = styled.div`
     border-radius: 20px;
     box-shadow: 5px 5px 15px #e8e8e8;
 `;
+
+export const Form = styled.form`
+    width: 100%;
+    height: 100%;
+    padding: 20px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #e8e8e8;
+    border-radius: 20px;
+    box-shadow: 5px 5px 15px #e8e8e8;
+    background-color: #ffffff;
+`;
